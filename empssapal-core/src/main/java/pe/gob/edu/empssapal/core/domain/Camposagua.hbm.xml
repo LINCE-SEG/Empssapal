@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 23/06/2012 10:38:16 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="pe.gob.edu.empssapal.core.domain.Camposagua" table="camposagua" >
+        <id name="id" type="java.lang.Long">
+            <column name="IdCampos" />
+            <generator class="identity" />
+        </id>
+
+     	<property name="interesado" type="string">
+            <column name="Interesado" length="100" />
+        </property>
+        <property name="fecha" type="date">
+            <column name="Fecha" length="100" />
+        </property>
+      
+        <property name="distancia" type="double">
+            <column name="Distancia" length="100" />
+        </property>
+        
+		<many-to-one name="vereda" class="pe.gob.edu.empssapal.core.domain.Vereda" lazy="false" fetch="select" >
+            <column name="IdVereda" />
+        </many-to-one>
+        
+        <many-to-one name="pista" class="pe.gob.edu.empssapal.core.domain.Tipopista" lazy="false" fetch="select" >
+            <column name="IdPista" />
+        </many-to-one>
+        
+        <many-to-one name="diametroagua" class="pe.gob.edu.empssapal.core.domain.Diametroagua" lazy="false" fetch="select" >
+            <column name="IdDiametroAgua" />
+        </many-to-one>
+   
+   		<many-to-one name="empalmered" class="pe.gob.edu.empssapal.core.domain.Empalmered" lazy="false" fetch="select" >
+            <column name="IdEmpalmeRed" />
+        </many-to-one>
+        
+        <many-to-one name="eliminacionexedente" class="pe.gob.edu.empssapal.core.domain.Eliminacionexedente" lazy="false" fetch="select" >
+            <column name="IdEliminacion" />
+        </many-to-one>
+   
+  		<many-to-one name="relleno" class="pe.gob.edu.empssapal.core.domain.Relleno" lazy="false" fetch="select" >
+            <column name="IdRelleno" />
+        </many-to-one>
+   		<many-to-one name="camaapoyo" class="pe.gob.edu.empssapal.core.domain.Camaapoyo" lazy="false" fetch="select" >
+            <column name="IdCama" />
+        </many-to-one>
+        <many-to-one name="pruebahidraulica" class="pe.gob.edu.empssapal.core.domain.Pruebahidraulica" lazy="false" fetch="select" >
+            <column name="IdPruebaHidraulica" />
+        </many-to-one>
+        <many-to-one name="excavacion" class="pe.gob.edu.empssapal.core.domain.Excavacion" lazy="false" fetch="select" >
+            <column name="IdEscavacion" />
+        </many-to-one>
+   
+   
+       
+    </class>
+</hibernate-mapping>

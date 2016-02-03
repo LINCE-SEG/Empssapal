@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		
+		
+	<mapping resource="pe/gob/edu/empssapal/core/domain/Cajamedidor.hbm.xml" />
+	<mapping resource="pe/gob/edu/empssapal/core/domain/Cajaregistradora.hbm.xml" />
+	<mapping resource="pe/gob/edu/empssapal/core/domain/Camaapoyo.hbm.xml" />
+	<mapping resource="pe/gob/edu/empssapal/core/domain/Camposagua.hbm.xml" />
+	<mapping resource="pe/gob/edu/empssapal/core/domain/Diametroagua.hbm.xml" />
+	
+	<mapping resource="pe/gob/edu/empssapal/core/domain/Diametroalcantarillado.hbm.xml" />
+	<mapping resource="pe/gob/edu/empssapal/core/domain/Camposalcantarillado.hbm.xml" />
+	
+	<mapping resource="pe/gob/edu/empssapal/core/domain/Empalmered.hbm.xml" />
+	<mapping resource="pe/gob/edu/empssapal/core/domain/Excavacion.hbm.xml" />
+	<mapping resource="pe/gob/edu/empssapal/core/domain/Relleno.hbm.xml" />
+	<mapping resource="pe/gob/edu/empssapal/core/domain/Reposicion.hbm.xml" />
+	<mapping resource="pe/gob/edu/empssapal/core/domain/Rotura.hbm.xml" />
+	<mapping resource="pe/gob/edu/empssapal/core/domain/Tendido.hbm.xml" />
+	<mapping resource="pe/gob/edu/empssapal/core/domain/Tipopista.hbm.xml" />
+	<mapping resource="pe/gob/edu/empssapal/core/domain/Vereda.hbm.xml" />
+	
+	<mapping resource="pe/gob/edu/empssapal/core/domain/Eliminacionexedente.hbm.xml" />
+	<mapping resource="pe/gob/edu/empssapal/core/domain/Pruebahidraulica.hbm.xml" />
+			 
+		
+
+	</session-factory>
+	
+</hibernate-configuration>

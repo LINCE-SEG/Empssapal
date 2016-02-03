@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 23/06/2012 10:38:16 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="pe.gob.edu.empssapal.core.domain.Diametroalcantarillado" table="diametroalcantarillado" >
+        <id name="id" type="java.lang.Long">
+            <column name="IdDiametroAlcantarillado" />
+            <generator class="identity" />
+        </id>
+        <property name="nombrediametro" type="string">
+            <column name="NombreDiametro" length="50" />
+
+        </property>
+        <property name="costodiametro" type="double">
+            <column name="CostoDiametro" length="40" />
+        </property>
+        
+        		<many-to-one name="cajaregistradora" class="pe.gob.edu.empssapal.core.domain.Cajaregistradora" lazy="false" fetch="select" >
+            <column name="IdCajaRegistradora" />
+        </many-to-one>
+        
+        <many-to-one name="tendido" class="pe.gob.edu.empssapal.core.domain.Tendido" lazy="false" fetch="select" >
+            <column name="IdTendido" />
+        </many-to-one>
+   
+       
+    </class>
+</hibernate-mapping>

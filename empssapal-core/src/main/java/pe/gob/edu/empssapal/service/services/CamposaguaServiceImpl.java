@@ -31,6 +31,18 @@ public class CamposaguaServiceImpl {
 	private CamposaguaDAO camposaguaDAO;
 	
 	
+	// metodo NUEVO
+	/**
+	 * By ocalsin
+	 * @param id
+	 * @return
+	 */
+	public Vereda findByIdVeredaCorrecto(Long id){
+		return camposaguaDAO.findByIdVeredaCorrecto(id);
+	}	
+	
+	
+	
 	//find long de 15
 		public List<Vereda> findByIdVereda(Long id){
 			return camposaguaDAO.findByIdVereda(id);

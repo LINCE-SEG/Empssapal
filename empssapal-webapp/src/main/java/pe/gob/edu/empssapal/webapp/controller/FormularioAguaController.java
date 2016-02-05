@@ -1,10 +1,5 @@
 package pe.gob.edu.empssapal.webapp.controller;
 
-import java.sql.Date;
-import java.text.Normalizer.Form;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
@@ -13,15 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import pe.gob.edu.empssapal.core.domain.Camposagua;
-import pe.gob.edu.empssapal.core.domain.Empalmered;
-import pe.gob.edu.empssapal.core.domain.Tipopista;
-import pe.gob.edu.empssapal.core.domain.Vereda;
 import pe.gob.edu.empssapal.service.services.CamposaguaServiceImpl;
+import pe.gob.edu.empssapal.core.domain.Vereda;
+
+
 
 @Controller
 
@@ -97,7 +91,24 @@ public class FormularioAguaController {
 	public String guardarpresupuestoagua15(
 			@ModelAttribute("FormularioAgua") Camposagua FormularioAgua, Model model) {
 		empssapalService.Guardarpresupuestoagua(FormularioAgua);
-		model.addAttribute("Veredas",empssapalService.findByIdVereda(FormularioAgua.getVereda().getId()));
+		
+		
+		// FORMA DE TRABAJO
+//		findByIdVeredaCorrecto
+		
+		logger.info("::::::::::::FormularioAgua/guardar15:::::::::::::::");
+		logger.info("::::::::::::FormularioAgua.getVereda().getId()"+FormularioAgua.getVereda().getId());
+
+		
+		
+		Vereda vereda = empssapalService.findByIdVeredaCorrecto(FormularioAgua.getVereda().getId());
+		
+//		model.addAttribute("Veredas",empssapalService.findByIdVereda(FormularioAgua.getVereda().getId()));
+		model.addAttribute("vereda",vereda);
+		model.addAttribute("VeredaPrecioXdistancia",vereda.getCostovere()*FormularioAgua.getDistancia());
+
+		
+		
 		model.addAttribute("pistas", empssapalService.findByIdPista(FormularioAgua.getPista().getId()));
 		model.addAttribute("excavacion", empssapalService.findByIdExcavacion(FormularioAgua.getExcavacion().getId()));
 		model.addAttribute("camaapoyo", empssapalService.findByIdCamaapoyo(FormularioAgua.getCamaapoyo().getId()));
@@ -107,6 +118,12 @@ public class FormularioAguaController {
 		model.addAttribute("relleno", empssapalService.findByIdRelleno(FormularioAgua.getRelleno().getId()));
 		model.addAttribute("eliminacion", empssapalService.findByIdEliminacionexedente(FormularioAgua.getEliminacionexedente().getId()));
 		model.addAttribute("prueba", empssapalService.findByIdPruebahidraulica(FormularioAgua.getPruebahidraulica().getId()));
+		
+		
+		
+		
+		
+		
 		return "FormularioAgua/Reporte";
 	}
 	

@@ -20,6 +20,20 @@ import pe.gob.edu.empssapal.core.domain.Vereda;
 
 public interface CamposaguaDAO {
 	
+	
+	
+	
+	
+	
+	public Vereda findByIdVeredaCorrecto(Long id);
+	
+
+	
+	
+	
+	
+	
+	
 	//find long de 15
 		public List<Vereda> findByIdVereda(Long id);
 		public List<Tipopista> findByIdPista(Long id);

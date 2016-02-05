@@ -31,14 +31,23 @@
 			<td>Vereda</td>
 			<td>Unidad</td>
 			<td>
-					<c:forEach items="${Veredas}" var="i">
-					      <p><input  value="${i.costovere}"  disabled></input></p>	
-				    </c:forEach>
+			
+<!-- 			Quitamos el for porque del controlador solo se envia solo Objetos NO LISTA DE OBJETOS es mucha camba y hace que el server sea lento-->
+<%-- 					<c:forEach items="${Veredas}" var="i"> --%>
+<%-- 					      <p><input  value="${i.costovere}"  disabled></input></p>	 --%>
+<%-- 				    </c:forEach> --%>
+
+					      <p><input  value="${vereda.costovere}"  disabled></input></p>	
+
 		    </td>
 			<td>
-					<c:forEach items="${Veredas}" var="i">
-					      <p><input  value="${i.costovere}"  disabled></input></p>	
-				    </c:forEach>
+
+<!-- 			Quitamos el for -->
+<%-- 					<c:forEach items="${Veredas}" var="i"> --%>
+<%-- 					      <p><input  value="${i.costovere}"  disabled></input></p>	 --%>
+<%-- 				    </c:forEach> --%>
+
+					      <p><input  value="${VeredaPrecioXdistancia}"  disabled></input></p>	
 		   
 			</td>
 		</tr>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 23/06/2012 10:38:16 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="pe.gob.edu.empssapal.core.domain.Reposicion" table="reposicion" >
+        <id name="id" type="java.lang.Long">
+            <column name="IdReposicion" />
+            <generator class="identity" />
+        </id>
+        <property name="nombrereposicion" type="string">
+            <column name="NombreReposicion" length="50" />
+        </property>
+         <property name="tiposervicioreposicion" type="string">
+            <column name="TipoServicioReposicion" length="40" />
+        </property>
+        <property name="costoreposicion" type="double">
+            <column name="CostoReposicion" length="40" />
+        </property>
+       
+    </class>
+</hibernate-mapping>

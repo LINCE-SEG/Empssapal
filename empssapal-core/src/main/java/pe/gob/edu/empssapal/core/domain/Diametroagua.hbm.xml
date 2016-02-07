@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 23/06/2012 10:38:16 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="pe.gob.edu.empssapal.core.domain.Diametroagua" table="diametroagua" >
+        <id name="id" type="java.lang.Long">
+            <column name="IdDiametroAgua" />
+            <generator class="identity" />
+        </id>
+
+     	<property name="nombrediametro" type="string">
+            <column name="NombreDiametro" length="100" />
+        </property>
+        
+        <property name="costodiametro" type="double">
+            <column name="CostoDiametro" length="10" />
+        </property>
+        
+		<many-to-one name="cajamedidor" class="pe.gob.edu.empssapal.core.domain.Cajamedidor" lazy="false" fetch="select" >
+            <column name="IdCajaMedidor" />
+        </many-to-one>
+        
+        <many-to-one name="tendido" class="pe.gob.edu.empssapal.core.domain.Tendido" lazy="false" fetch="select" >
+            <column name="IdTendido" />
+        </many-to-one>
+   
+       
+    </class>
+</hibernate-mapping>

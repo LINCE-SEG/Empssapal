@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 23/06/2012 10:38:16 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="pe.gob.edu.empssapal.core.domain.Tipopista" table="tipopista" >
+        <id name="id" type="java.lang.Long">
+            <column name="IdPista" />
+            <generator class="identity" />
+        </id>
+
+     	<property name="nombrepista" type="string">
+            <column name="nombrepista" length="100" />
+        </property>
+        
+        <property name="tiposerviciopista" type="string">
+            <column name="Tiposerviciopista" length="100" />
+        </property>
+        
+        <property name="costopista" type="double">
+            <column name="Costopista" length="100" />
+        </property>
+        
+		<many-to-one name="rotura" class="pe.gob.edu.empssapal.core.domain.Rotura" lazy="false" fetch="select" >
+            <column name="IdRotura" />
+        </many-to-one>
+        
+        <many-to-one name="reposicion" class="pe.gob.edu.empssapal.core.domain.Reposicion" lazy="false" fetch="select" >
+            <column name="IdReposicion" />
+        </many-to-one>
+   
+       
+    </class>
+</hibernate-mapping>

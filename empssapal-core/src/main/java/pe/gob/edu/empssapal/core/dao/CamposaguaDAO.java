@@ -1,5 +1,6 @@
 package pe.gob.edu.empssapal.core.dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import pe.gob.edu.empssapal.core.domain.Cajamedidor;
@@ -20,61 +21,54 @@ import pe.gob.edu.empssapal.core.domain.Vereda;
 
 public interface CamposaguaDAO {
 	
-	
+	//Metodos herramientas
+	 public BigDecimal Limite (Double num);
 	
 	
 	
 	
 	public Vereda findByIdVeredaCorrecto(Long id);
-	
 
-	
-	
-	
-	
-	
-	
 	//find long de 15
-		public List<Vereda> findByIdVereda(Long id);
-		public List<Tipopista> findByIdPista(Long id);
-		public List<Tendido> findByIdTendido15(Long id);
-		public List<Cajamedidor> findByIdCajamedidor15(Long id);
-		public List<Tendido> findByIdTendido20(Long id);
-		public List<Cajamedidor> findByIdCajamedidor20(Long id);
-		public List<Tendido> findByIdTendido25(Long id);
-		public List<Cajamedidor> findByIdCajamedidor25(Long id);
-		public List<Tendido> findByIdTendido38(Long id);
-		public List<Cajamedidor> findByIdCajamedidor38(Long id);
-		public List<Tendido> findByIdTendido6(Long id);
-		public List<Cajaregistradora> findByIdCajaregistradora6(Long id);
+//		public Vereda findByIdVereda(Long id);
+		public Tipopista findByIdPista(Long id);
+		public Tendido findByIdTendido15(Long id);
+		public Cajamedidor findByIdCajamedidor15(Long id);
+		public Tendido findByIdTendido20(Long id);
+		public Cajamedidor findByIdCajamedidor20(Long id);
+		public Tendido findByIdTendido25(Long id);
+		public Cajamedidor findByIdCajamedidor25(Long id);
+		public Tendido findByIdTendido38(Long id);
+		public Cajamedidor findByIdCajamedidor38(Long id);
+		public Tendido findByIdTendido6(Long id);
+		public Cajaregistradora findByIdCajaregistradora6(Long id);
 		
-		public List<Tendido> findByIdTendido160(Long id);
-		public List<Cajaregistradora> findByIdCajaregistradora160(Long id);
-		public List<Tendido> findByIdTendido200(Long id);
-		public List<Cajaregistradora> findByIdCajaregistradora200(Long id);
-		
-		
+		public Tendido findByIdTendido160(Long id);
+		public Cajaregistradora findByIdCajaregistradora160(Long id);
+		public Tendido findByIdTendido200(Long id);
+		public Cajaregistradora findByIdCajaregistradora200(Long id);
 		
 		
 		
 		
 		
 		
-		public List<Rotura> findByIdRotura(Long id);
-		public List<Reposicion> findByIdReposicion(Long id);
-		public List<Relleno> findByIdRelleno(Long id);
-		public List<Pruebahidraulica> findByIdPruebahidraulica(Long id);
-		public List<Excavacion> findByIdExcavacion(Long id);
-		public List<Empalmered> findByIdEmpalmered(Long id);
-		public List<Eliminacionexedente> findByIdEliminacionexedente(Long id);
-		public List<Cajaregistradora> findByIdCajaregistradora(Long id);
-		public List<Camaapoyo> findByIdCamaapoyo(Long id);
-		public List<Camposalcantarillado> findbyidcamposalcantarillado(Long id);
-		public List<Camposagua> findbyidcamposagua(int i);
 		
+		
+		public Rotura findByIdRotura(Long id);
+		public Reposicion findByIdReposicion(Long id);
+		public Relleno findByIdRelleno(Long id);
+		public Pruebahidraulica findByIdPruebahidraulica(Long id);
+		public Excavacion findByIdExcavacion(Long id);
+		public Empalmered findByIdEmpalmered(Long id);
+		public Eliminacionexedente findByIdEliminacionexedente(Long id);
+		public Cajaregistradora findByIdCajaregistradora(Long id);
+		public Camaapoyo findByIdCamaapoyo(Long id);
+		public Camposalcantarillado findbyidcamposalcantarillado(Long id);
+		public Camposagua findbyidcamposagua(Long id);
 		
 	//campos presupuesto alcantarillado
-		public List<Camposalcantarillado> listaralcantarillado();
+	public List<Camposalcantarillado> listaralcantarillado();
 	public void guardandopresupuestoalcantarillado(Camposalcantarillado camposalcantarillado);
 	
 	public List<Vereda> Listarveredawherealcantarillado();

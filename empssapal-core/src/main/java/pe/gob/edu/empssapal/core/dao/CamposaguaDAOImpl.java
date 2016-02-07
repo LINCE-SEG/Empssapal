@@ -1,5 +1,7 @@
 package pe.gob.edu.empssapal.core.dao;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 import pe.gob.edu.empssapal.core.domain.Cajamedidor;
@@ -21,119 +23,131 @@ import pe.gob.edu.empssapal.core.domain.Vereda;
 public class CamposaguaDAOImpl extends BaseDAOHibernate implements CamposaguaDAO {
 
 	// @Override
+	
+	//Metodos herramientas
+	
+	public BigDecimal Limite (Double num){
+		
+		 String val = num+"";
+	      BigDecimal big = new BigDecimal(val);
+	      big = big.setScale(2, RoundingMode.HALF_UP);
+	      System.out.println("Número : "+big);
+		return big;
+	}
+	
 	// find long de agua
 
-	public List<Excavacion> findByIdExcavacion(Long id) {
-		return find(Excavacion.class, "FROM Excavacion where IdEscavacion =" + id);
+	public Excavacion findByIdExcavacion(Long id) {
+		return findFirst(Excavacion.class, "FROM Excavacion where IdEscavacion =" + id);
 	}
 
-	public List<Tipopista> findByIdPista(Long id) {
-		return find(Tipopista.class, "FROM Tipopista where IdPista =" + id);
+	public Tipopista findByIdPista(Long id) {
+		return findFirst(Tipopista.class, "FROM Tipopista where IdPista =" + id);
 	}
 
-	public List<Camaapoyo> findByIdCamaapoyo(Long id) {
-		return find(Camaapoyo.class, "FROM Camaapoyo where IdCama =" + id);
+	public Camaapoyo findByIdCamaapoyo(Long id) {
+		return findFirst(Camaapoyo.class, "FROM Camaapoyo where IdCama =" + id);
 	}
 
-	public List<Tendido> findByIdTendido15(Long id) {
-		return find(Tendido.class, "FROM Tendido  where" + " NombreTendido = " + 15 + " and " + "IdTendido =" + id);
+	public Tendido findByIdTendido15(Long id) {
+		return findFirst(Tendido.class, "FROM Tendido  where" + " NombreTendido = " + 15 + " and " + "IdTendido =" + id);
 	}
 
-	public List<Cajamedidor> findByIdCajamedidor15(Long id) {
-		return find(Cajamedidor.class,
+	public Cajamedidor findByIdCajamedidor15(Long id) {
+		return findFirst(Cajamedidor.class,
 				"FROM Cajamedidor  where" + " NombreCajamedidor = " + 15 + " and " + "IdCajaMedidor =" + id);
 	}
 
-	public List<Tendido> findByIdTendido20(Long id) {
-		return find(Tendido.class, "FROM Tendido  where" + " NombreTendido = " + 20 + " and " + "IdTendido =" + id);
+	public Tendido findByIdTendido20(Long id) {
+		return findFirst(Tendido.class, "FROM Tendido  where" + " NombreTendido = " + 20 + " and " + "IdTendido =" + id);
 	}
 
-	public List<Cajamedidor> findByIdCajamedidor20(Long id) {
-		return find(Cajamedidor.class,
+	public Cajamedidor findByIdCajamedidor20(Long id) {
+		return findFirst(Cajamedidor.class,
 				"FROM Cajamedidor  where" + " NombreCajamedidor = " + 20 + " and " + "IdCajaMedidor =" + id);
 	}
 
-	public List<Tendido> findByIdTendido25(Long id) {
-		return find(Tendido.class, "FROM Tendido  where" + " NombreTendido = " + 25 + " and " + "IdTendido =" + id);
+	public Tendido findByIdTendido25(Long id) {
+		return findFirst(Tendido.class, "FROM Tendido  where" + " NombreTendido = " + 25 + " and " + "IdTendido =" + id);
 	}
 
-	public List<Cajamedidor> findByIdCajamedidor25(Long id) {
-		return find(Cajamedidor.class,
+	public Cajamedidor findByIdCajamedidor25(Long id) {
+		return findFirst(Cajamedidor.class,
 				"FROM Cajamedidor  where" + " NombreCajamedidor = " + 25 + " and " + "IdCajaMedidor =" + id);
 	}
 
-	public List<Tendido> findByIdTendido38(Long id) {
-		return find(Tendido.class, "FROM Tendido  where" + " NombreTendido = " + 38 + " and " + "IdTendido =" + id);
+	public Tendido findByIdTendido38(Long id) {
+		return findFirst(Tendido.class, "FROM Tendido  where" + " NombreTendido = " + 38 + " and " + "IdTendido =" + id);
 	}
 
-	public List<Cajamedidor> findByIdCajamedidor38(Long id) {
-		return find(Cajamedidor.class,
+	public Cajamedidor findByIdCajamedidor38(Long id) {
+		return findFirst(Cajamedidor.class,
 				"FROM Cajamedidor  where" + " NombreCajamedidor = " + 38 + " and " + "IdCajaMedidor =" + id);
 	}
 
-	public List<Tendido> findByIdTendido6(Long id) {
-		return find(Tendido.class, "FROM Tendido  where" + " NombreTendido = " + 5 + " and " + "IdTendido =" + id);
+	public Tendido findByIdTendido6(Long id) {
+		return findFirst(Tendido.class, "FROM Tendido  where" + " NombreTendido = " + 5 + " and " + "IdTendido =" + id);
 	}
 
-	public List<Cajaregistradora> findByIdCajaregistradora6(Long id) {
-		return find(Cajaregistradora.class, "FROM Cajaregistradora  where" + " NombreCajaregistradora = " + 1 + " and "
+	public Cajaregistradora findByIdCajaregistradora6(Long id) {
+		return findFirst(Cajaregistradora.class, "FROM Cajaregistradora  where" + " NombreCajaregistradora = " + 1 + " and "
 				+ "IdCajaRegistradora =" + id);
 	}
 
-	public List<Tendido> findByIdTendido160(Long id) {
-		return find(Tendido.class, "FROM Tendido  where" + " NombreTendido = " + 6 + " and " + "IdTendido =" + id);
+	public Tendido findByIdTendido160(Long id) {
+		return findFirst(Tendido.class, "FROM Tendido  where" + " NombreTendido = " + 6 + " and " + "IdTendido =" + id);
 	}
 
-	public List<Cajaregistradora> findByIdCajaregistradora160(Long id) {
-		return find(Cajaregistradora.class, "FROM Cajaregistradora  where" + " NombreCajaregistradora = " + 2 + " and "
+	public Cajaregistradora findByIdCajaregistradora160(Long id) {
+		return findFirst(Cajaregistradora.class, "FROM Cajaregistradora  where" + " NombreCajaregistradora = " + 2 + " and "
 				+ "IdCajaRegistradora =" + id);
 	}
 
-	public List<Tendido> findByIdTendido200(Long id) {
-		return find(Tendido.class, "FROM Tendido  where" + " NombreTendido = " + 7 + " and " + "IdTendido =" + id);
+	public Tendido findByIdTendido200(Long id) {
+		return findFirst(Tendido.class, "FROM Tendido  where" + " NombreTendido = " + 7 + " and " + "IdTendido =" + id);
 	}
 
-	public List<Cajaregistradora> findByIdCajaregistradora200(Long id) {
-		return find(Cajaregistradora.class, "FROM Cajaregistradora  where" + " NombreCajaregistradora = " + 3 + " and "
+	public Cajaregistradora findByIdCajaregistradora200(Long id) {
+		return findFirst(Cajaregistradora.class, "FROM Cajaregistradora  where" + " NombreCajaregistradora = " + 3 + " and "
 				+ "IdCajaRegistradora =" + id);
 	}
 
-	public List<Rotura> findByIdRotura(Long id) {
-		return find(Rotura.class, "FROM Rotura where IdRotura =" + id);
+	public Rotura findByIdRotura(Long id) {
+		return findFirst(Rotura.class, "FROM Rotura where IdRotura =" + id);
 	}
 
-	public List<Reposicion> findByIdReposicion(Long id) {
-		return find(Reposicion.class, "FROM Reposicion where IdReposicion =" + id);
+	public Reposicion findByIdReposicion(Long id) {
+		return findFirst(Reposicion.class, "FROM Reposicion where IdReposicion =" + id);
 	}
 
-	public List<Relleno> findByIdRelleno(Long id) {
-		return find(Relleno.class, "FROM Relleno where IdRelleno =" + id);
+	public Relleno findByIdRelleno(Long id) {
+		return findFirst(Relleno.class, "FROM Relleno where IdRelleno =" + id);
 	}
 
-	public List<Pruebahidraulica> findByIdPruebahidraulica(Long id) {
-		return find(Pruebahidraulica.class, "FROM Pruebahidraulica where IdPruebaHidraulica =" + id);
+	public Pruebahidraulica findByIdPruebahidraulica(Long id) {
+		return findFirst(Pruebahidraulica.class, "FROM Pruebahidraulica where IdPruebaHidraulica =" + id);
 	}
 
-	public List<Empalmered> findByIdEmpalmered(Long id) {
-		return find(Empalmered.class, "FROM Empalmered where IdEmpalmeRed =" + id);
+	public Empalmered findByIdEmpalmered(Long id) {
+		return findFirst(Empalmered.class, "FROM Empalmered where IdEmpalmeRed =" + id);
 	}
 
-	public List<Eliminacionexedente> findByIdEliminacionexedente(Long id) {
-		return find(Eliminacionexedente.class, "FROM Eliminacionexedente where IdEliminacion =" + id);
+	public Eliminacionexedente findByIdEliminacionexedente(Long id) {
+		return findFirst(Eliminacionexedente.class, "FROM Eliminacionexedente where IdEliminacion =" + id);
 	}
 
-	public List<Cajaregistradora> findByIdCajaregistradora(Long id) {
-		return find(Cajaregistradora.class, "FROM Cajaregistradora where IdCajaRegistradora =" + id);
+	public Cajaregistradora findByIdCajaregistradora(Long id) {
+		return findFirst(Cajaregistradora.class, "FROM Cajaregistradora where IdCajaRegistradora =" + id);
 	}
 
-	public List<Camposalcantarillado> findbyidcamposalcantarillado(Long id) {
-		return find(Camposalcantarillado.class, "FROM Camposalcantarillado where IdCamposAlcantarillado=" + id);
+	public Camposalcantarillado findbyidcamposalcantarillado(Long id) {
+		return findFirst(Camposalcantarillado.class, "FROM Camposalcantarillado where IdCamposAlcantarillado=" + id);
 	}
 
-	public List<Camposagua> findbyidcamposagua(int id) {
-		return find(Camposagua.class, "FROM Camposagua where IdCampos=" + id);
-	}
 
+ public Camposagua findbyidcamposagua(Long id){
+	 return findFirst(Camposagua.class, "FROM Camposagua where IdCampos=" + id);
+ }
 	
 	
 	
@@ -145,9 +159,9 @@ public class CamposaguaDAOImpl extends BaseDAOHibernate implements CamposaguaDAO
 	/**
 	 * By ocalsin
 	 */
-	public List<Vereda> findByIdVereda(Long id) {
-		return find(Vereda.class, "FROM Vereda where IdVereda =" + id);
-	}
+//	public List<Vereda> findByIdVereda(Long id) {
+//		return find(Vereda.class, "FROM Vereda where IdVereda =" + id);
+//	}
 
 	/**
 	 * by ocalsin

@@ -25,7 +25,7 @@
 						<div class="form-group">
 							<label for="exampleInputEmail1">Distancia</label>
 							<form:input path="distancia" class="form-control"
-								placeholder="Distancia" type="number" autofocus="autofocus" required="required" />
+								placeholder="Distancia" type="number" autofocus="autofocus" required="required" size="3,2" />
 						</div>
 					</div>
 				</div>

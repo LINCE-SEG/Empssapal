@@ -1,5 +1,7 @@
 package pe.gob.edu.empssapal.webapp.controller;
 
+import java.text.Normalizer.Form;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
@@ -11,7 +13,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import pe.gob.edu.empssapal.core.domain.Cajamedidor;
+import pe.gob.edu.empssapal.core.domain.Camaapoyo;
 import pe.gob.edu.empssapal.core.domain.Camposagua;
+import pe.gob.edu.empssapal.core.domain.Eliminacionexedente;
+import pe.gob.edu.empssapal.core.domain.Empalmered;
+import pe.gob.edu.empssapal.core.domain.Excavacion;
+import pe.gob.edu.empssapal.core.domain.Pruebahidraulica;
+import pe.gob.edu.empssapal.core.domain.Relleno;
+import pe.gob.edu.empssapal.core.domain.Tendido;
+import pe.gob.edu.empssapal.core.domain.Tipopista;
 import pe.gob.edu.empssapal.service.services.CamposaguaServiceImpl;
 import pe.gob.edu.empssapal.core.domain.Vereda;
 
@@ -91,37 +102,65 @@ public class FormularioAguaController {
 	public String guardarpresupuestoagua15(
 			@ModelAttribute("FormularioAgua") Camposagua FormularioAgua, Model model) {
 		empssapalService.Guardarpresupuestoagua(FormularioAgua);
-		
-		
-		// FORMA DE TRABAJO
-//		findByIdVeredaCorrecto
-		
-		logger.info("::::::::::::FormularioAgua/guardar15:::::::::::::::");
-		logger.info("::::::::::::FormularioAgua.getVereda().getId()"+FormularioAgua.getVereda().getId());
-
-		
-		
+     	
 		Vereda vereda = empssapalService.findByIdVeredaCorrecto(FormularioAgua.getVereda().getId());
-		
-//		model.addAttribute("Veredas",empssapalService.findByIdVereda(FormularioAgua.getVereda().getId()));
 		model.addAttribute("vereda",vereda);
-		model.addAttribute("VeredaPrecioXdistancia",vereda.getCostovere()*FormularioAgua.getDistancia());
+		Double numvere = vereda.getCostovere();
+		model.addAttribute("VeredaPrecioXdistancia", empssapalService.Limite(numvere));
+
+		Tipopista pistas = empssapalService.findByIdPista(FormularioAgua.getPista().getId());
+		model.addAttribute("pistas",pistas);
+		Double numpista = pistas.getCostopista()*FormularioAgua.getDistancia();
+		empssapalService.Limite(numpista);
+		model.addAttribute("pistatotal", empssapalService.Limite(numpista));
+		
+
+		Excavacion excavacion=empssapalService.findByIdExcavacion(FormularioAgua.getExcavacion().getId());
+		model.addAttribute("excavacion", excavacion);
+		Double numexca = excavacion.getPrecioexcavacion()*FormularioAgua.getDistancia();
+		model.addAttribute("excavaciontotal", empssapalService.Limite(numexca));
 
 		
+		Camaapoyo camaapoyo = empssapalService.findByIdCamaapoyo(FormularioAgua.getCamaapoyo().getId());
+		model.addAttribute("camaapoyo",camaapoyo);
+		Double numcama = camaapoyo.getPreciocama()*FormularioAgua.getDistancia();
+		model.addAttribute("camaapoyototal", empssapalService.Limite(numcama));
 		
-		model.addAttribute("pistas", empssapalService.findByIdPista(FormularioAgua.getPista().getId()));
-		model.addAttribute("excavacion", empssapalService.findByIdExcavacion(FormularioAgua.getExcavacion().getId()));
-		model.addAttribute("camaapoyo", empssapalService.findByIdCamaapoyo(FormularioAgua.getCamaapoyo().getId()));
-		model.addAttribute("tendido", empssapalService.findByIdTendido15(FormularioAgua.getDiametroagua().getId()));
-		model.addAttribute("cajamedidor", empssapalService.findByIdCajamedidor15(FormularioAgua.getDiametroagua().getId()));
-		model.addAttribute("empalmeared", empssapalService.findByIdEmpalmered(FormularioAgua.getEmpalmered().getId()));
-		model.addAttribute("relleno", empssapalService.findByIdRelleno(FormularioAgua.getRelleno().getId()));
-		model.addAttribute("eliminacion", empssapalService.findByIdEliminacionexedente(FormularioAgua.getEliminacionexedente().getId()));
-		model.addAttribute("prueba", empssapalService.findByIdPruebahidraulica(FormularioAgua.getPruebahidraulica().getId()));
+		Tendido tendido = empssapalService.findByIdTendido15(FormularioAgua.getDiametroagua().getId());
+		model.addAttribute("tendido",tendido);
+		Double numtend = tendido.getCostotendido()*FormularioAgua.getDistancia();
+		model.addAttribute("tendidototal", empssapalService.Limite(numtend));
+		
+		Cajamedidor cajamedidor = empssapalService.findByIdCajamedidor15(FormularioAgua.getDiametroagua().getId());
+		model.addAttribute("cajamedidor", cajamedidor);
+		Double numcajamedidor = cajamedidor.getPreciocajamedidor();
+		model.addAttribute("totalcajamedidor", empssapalService.Limite(numcajamedidor));
+		
+		Empalmered empalmeared = empssapalService.findByIdEmpalmered(FormularioAgua.getEmpalmered().getId());
+		model.addAttribute("empalmeared", empalmeared);
+		Double numempal = empalmeared.getPrecioempalme();
+		model.addAttribute("totalempalmeared", empssapalService.Limite(numempal));
+		
+		Relleno relleno   =  empssapalService.findByIdRelleno(FormularioAgua.getRelleno().getId());
+		model.addAttribute("relleno", relleno);
+		Double numrell = relleno.getCostorelleno()*FormularioAgua.getDistancia();
+		model.addAttribute("totalrelleno", empssapalService.Limite(numrell));
+		
+		Eliminacionexedente eliminacion= empssapalService.findByIdEliminacionexedente(FormularioAgua.getEliminacionexedente().getId());
+		model.addAttribute("eliminacion", eliminacion);
+		Double numelimi = eliminacion.getCostoeliminacion()*FormularioAgua.getDistancia();
+		model.addAttribute("totaleliminacion", empssapalService.Limite(numelimi));
+		
+		Pruebahidraulica prueba = empssapalService.findByIdPruebahidraulica(FormularioAgua.getPruebahidraulica().getId());
+		model.addAttribute("prueba", prueba);
+		Double numprue = prueba.getCostoprueba()*FormularioAgua.getDistancia();
+		model.addAttribute("totalprueba", empssapalService.Limite(numprue));
+
+		Double resultado = numcajamedidor+numcama+numelimi+numempal+numexca+numpista+numprue+numrell+numtend+numvere;
+		model.addAttribute("total", empssapalService.Limite(resultado));
 		
 		
-		
-		
+
 		
 		
 		return "FormularioAgua/Reporte";
@@ -132,49 +171,202 @@ public class FormularioAguaController {
 			@ModelAttribute("FormularioAgua") Camposagua FormularioAgua, Model model) {
 		empssapalService.Guardarpresupuestoagua(FormularioAgua);
 		
-		model.addAttribute("Veredas",empssapalService.findByIdVereda(FormularioAgua.getVereda().getId()));
-		model.addAttribute("pistas", empssapalService.findByIdPista(FormularioAgua.getPista().getId()));
-		model.addAttribute("excavacion", empssapalService.findByIdExcavacion(FormularioAgua.getExcavacion().getId()));
-		model.addAttribute("camaapoyo", empssapalService.findByIdCamaapoyo(FormularioAgua.getCamaapoyo().getId()));
-		model.addAttribute("tendido", empssapalService.findByIdTendido20(FormularioAgua.getDiametroagua().getId()));
-		model.addAttribute("cajamedidor", empssapalService.findByIdCajamedidor20(FormularioAgua.getDiametroagua().getId()));
-		model.addAttribute("empalmeared", empssapalService.findByIdEmpalmered(FormularioAgua.getEmpalmered().getId()));
-		model.addAttribute("relleno", empssapalService.findByIdRelleno(FormularioAgua.getRelleno().getId()));
-		model.addAttribute("eliminacion", empssapalService.findByIdEliminacionexedente(FormularioAgua.getEliminacionexedente().getId()));
-		model.addAttribute("prueba", empssapalService.findByIdPruebahidraulica(FormularioAgua.getPruebahidraulica().getId()));
+		
+		Vereda vereda = empssapalService.findByIdVeredaCorrecto(FormularioAgua.getVereda().getId());
+		model.addAttribute("vereda",vereda);
+		Double numvere = vereda.getCostovere();
+		model.addAttribute("VeredaPrecioXdistancia", empssapalService.Limite(numvere));
+
+		Tipopista pistas = empssapalService.findByIdPista(FormularioAgua.getPista().getId());
+		model.addAttribute("pistas",pistas);
+		Double numpista = pistas.getCostopista()*FormularioAgua.getDistancia();
+		empssapalService.Limite(numpista);
+		model.addAttribute("pistatotal", empssapalService.Limite(numpista));
+		
+
+		Excavacion excavacion=empssapalService.findByIdExcavacion(FormularioAgua.getExcavacion().getId());
+		model.addAttribute("excavacion", excavacion);
+		Double numexca = excavacion.getPrecioexcavacion()*FormularioAgua.getDistancia();
+		model.addAttribute("excavaciontotal", empssapalService.Limite(numexca));
+
+		
+		Camaapoyo camaapoyo = empssapalService.findByIdCamaapoyo(FormularioAgua.getCamaapoyo().getId());
+		model.addAttribute("camaapoyo",camaapoyo);
+		Double numcama = camaapoyo.getPreciocama()*FormularioAgua.getDistancia();
+		model.addAttribute("camaapoyototal", empssapalService.Limite(numcama));
+		
+		Tendido tendido = empssapalService.findByIdTendido20(FormularioAgua.getDiametroagua().getId());
+		model.addAttribute("tendido",tendido);
+		Double numtend = tendido.getCostotendido()*FormularioAgua.getDistancia();
+		model.addAttribute("tendidototal", empssapalService.Limite(numtend));
+		
+		Cajamedidor cajamedidor = empssapalService.findByIdCajamedidor20(FormularioAgua.getDiametroagua().getId());
+		model.addAttribute("cajamedidor", cajamedidor);
+		Double numcajamedidor = cajamedidor.getPreciocajamedidor();
+		model.addAttribute("totalcajamedidor", empssapalService.Limite(numcajamedidor));
+		
+		Empalmered empalmeared = empssapalService.findByIdEmpalmered(FormularioAgua.getEmpalmered().getId());
+		model.addAttribute("empalmeared", empalmeared);
+		Double numempal = empalmeared.getPrecioempalme();
+		model.addAttribute("totalempalmeared", empssapalService.Limite(numempal));
+		
+		Relleno relleno   =  empssapalService.findByIdRelleno(FormularioAgua.getRelleno().getId());
+		model.addAttribute("relleno", relleno);
+		Double numrell = relleno.getCostorelleno()*FormularioAgua.getDistancia();
+		model.addAttribute("totalrelleno", empssapalService.Limite(numrell));
+		
+		Eliminacionexedente eliminacion= empssapalService.findByIdEliminacionexedente(FormularioAgua.getEliminacionexedente().getId());
+		model.addAttribute("eliminacion", eliminacion);
+		Double numelimi = eliminacion.getCostoeliminacion()*FormularioAgua.getDistancia();
+		model.addAttribute("totaleliminacion", empssapalService.Limite(numelimi));
+		
+		Pruebahidraulica prueba = empssapalService.findByIdPruebahidraulica(FormularioAgua.getPruebahidraulica().getId());
+		model.addAttribute("prueba", prueba);
+		Double numprue = prueba.getCostoprueba()*FormularioAgua.getDistancia();
+		model.addAttribute("totalprueba", empssapalService.Limite(numprue));
+
+		Double resultado = numcajamedidor+numcama+numelimi+numempal+numexca+numpista+numprue+numrell+numtend+numvere;
+		model.addAttribute("total", empssapalService.Limite(resultado));
+		
+		
+
+		
+		
 		return "FormularioAgua/Reporte";
+		
 	}
 	@RequestMapping(value = "FormularioAgua/guardar25", method = RequestMethod.POST)
 	public String guardarpresupuestoagua25(
 			@ModelAttribute("FormularioAgua") Camposagua FormularioAgua, Model model) {
-		empssapalService.Guardarpresupuestoagua(FormularioAgua);
-		model.addAttribute("Veredas",empssapalService.findByIdVereda(FormularioAgua.getVereda().getId()));
-		model.addAttribute("pistas", empssapalService.findByIdPista(FormularioAgua.getPista().getId()));
-		model.addAttribute("excavacion", empssapalService.findByIdExcavacion(FormularioAgua.getExcavacion().getId()));
-		model.addAttribute("camaapoyo", empssapalService.findByIdCamaapoyo(FormularioAgua.getCamaapoyo().getId()));
-		model.addAttribute("tendido", empssapalService.findByIdTendido25(FormularioAgua.getDiametroagua().getId()));
-		model.addAttribute("cajamedidor", empssapalService.findByIdCajamedidor25(FormularioAgua.getDiametroagua().getId()));
-		model.addAttribute("empalmeared", empssapalService.findByIdEmpalmered(FormularioAgua.getEmpalmered().getId()));
-		model.addAttribute("relleno", empssapalService.findByIdRelleno(FormularioAgua.getRelleno().getId()));
-		model.addAttribute("eliminacion", empssapalService.findByIdEliminacionexedente(FormularioAgua.getEliminacionexedente().getId()));
-		model.addAttribute("prueba", empssapalService.findByIdPruebahidraulica(FormularioAgua.getPruebahidraulica().getId()));
+		Vereda vereda = empssapalService.findByIdVeredaCorrecto(FormularioAgua.getVereda().getId());
+		model.addAttribute("vereda",vereda);
+		Double numvere = vereda.getCostovere();
+		model.addAttribute("VeredaPrecioXdistancia", empssapalService.Limite(numvere));
+
+		Tipopista pistas = empssapalService.findByIdPista(FormularioAgua.getPista().getId());
+		model.addAttribute("pistas",pistas);
+		Double numpista = pistas.getCostopista()*FormularioAgua.getDistancia();
+		empssapalService.Limite(numpista);
+		model.addAttribute("pistatotal", empssapalService.Limite(numpista));
+		
+
+		Excavacion excavacion=empssapalService.findByIdExcavacion(FormularioAgua.getExcavacion().getId());
+		model.addAttribute("excavacion", excavacion);
+		Double numexca = excavacion.getPrecioexcavacion()*FormularioAgua.getDistancia();
+		model.addAttribute("excavaciontotal", empssapalService.Limite(numexca));
+
+		
+		Camaapoyo camaapoyo = empssapalService.findByIdCamaapoyo(FormularioAgua.getCamaapoyo().getId());
+		model.addAttribute("camaapoyo",camaapoyo);
+		Double numcama = camaapoyo.getPreciocama()*FormularioAgua.getDistancia();
+		model.addAttribute("camaapoyototal", empssapalService.Limite(numcama));
+		
+		Tendido tendido = empssapalService.findByIdTendido25(FormularioAgua.getDiametroagua().getId());
+		model.addAttribute("tendido",tendido);
+		Double numtend = tendido.getCostotendido()*FormularioAgua.getDistancia();
+		model.addAttribute("tendidototal", empssapalService.Limite(numtend));
+		
+		Cajamedidor cajamedidor = empssapalService.findByIdCajamedidor25(FormularioAgua.getDiametroagua().getId());
+		model.addAttribute("cajamedidor", cajamedidor);
+		Double numcajamedidor = cajamedidor.getPreciocajamedidor();
+		model.addAttribute("totalcajamedidor", empssapalService.Limite(numcajamedidor));
+		
+		Empalmered empalmeared = empssapalService.findByIdEmpalmered(FormularioAgua.getEmpalmered().getId());
+		model.addAttribute("empalmeared", empalmeared);
+		Double numempal = empalmeared.getPrecioempalme();
+		model.addAttribute("totalempalmeared", empssapalService.Limite(numempal));
+		
+		Relleno relleno   =  empssapalService.findByIdRelleno(FormularioAgua.getRelleno().getId());
+		model.addAttribute("relleno", relleno);
+		Double numrell = relleno.getCostorelleno()*FormularioAgua.getDistancia();
+		model.addAttribute("totalrelleno", empssapalService.Limite(numrell));
+		
+		Eliminacionexedente eliminacion= empssapalService.findByIdEliminacionexedente(FormularioAgua.getEliminacionexedente().getId());
+		model.addAttribute("eliminacion", eliminacion);
+		Double numelimi = eliminacion.getCostoeliminacion()*FormularioAgua.getDistancia();
+		model.addAttribute("totaleliminacion", empssapalService.Limite(numelimi));
+		
+		Pruebahidraulica prueba = empssapalService.findByIdPruebahidraulica(FormularioAgua.getPruebahidraulica().getId());
+		model.addAttribute("prueba", prueba);
+		Double numprue = prueba.getCostoprueba()*FormularioAgua.getDistancia();
+		model.addAttribute("totalprueba", empssapalService.Limite(numprue));
+
+		Double resultado = numcajamedidor+numcama+numelimi+numempal+numexca+numpista+numprue+numrell+numtend+numvere;
+		model.addAttribute("total", empssapalService.Limite(resultado));
+		
+		
+
+		
+		
 		return "FormularioAgua/Reporte";
+		
 	}
 	@RequestMapping(value = "FormularioAgua/guardar38", method = RequestMethod.POST)
 	public String guardarpresupuestoagua38(
 			@ModelAttribute("FormularioAgua") Camposagua FormularioAgua, Model model) {
 		empssapalService.Guardarpresupuestoagua(FormularioAgua);
-		model.addAttribute("Veredas",empssapalService.findByIdVereda(FormularioAgua.getVereda().getId()));
-		model.addAttribute("pistas", empssapalService.findByIdPista(FormularioAgua.getPista().getId()));
-		model.addAttribute("excavacion", empssapalService.findByIdExcavacion(FormularioAgua.getExcavacion().getId()));
-		model.addAttribute("camaapoyo", empssapalService.findByIdCamaapoyo(FormularioAgua.getCamaapoyo().getId()));
-		model.addAttribute("tendido", empssapalService.findByIdTendido38(FormularioAgua.getDiametroagua().getId()));
-		model.addAttribute("cajamedidor", empssapalService.findByIdCajamedidor38(FormularioAgua.getDiametroagua().getId()));
-		model.addAttribute("empalmeared", empssapalService.findByIdEmpalmered(FormularioAgua.getEmpalmered().getId()));
-		model.addAttribute("relleno", empssapalService.findByIdRelleno(FormularioAgua.getRelleno().getId()));
-		model.addAttribute("eliminacion", empssapalService.findByIdEliminacionexedente(FormularioAgua.getEliminacionexedente().getId()));
-		model.addAttribute("prueba", empssapalService.findByIdPruebahidraulica(FormularioAgua.getPruebahidraulica().getId()));
+		Vereda vereda = empssapalService.findByIdVeredaCorrecto(FormularioAgua.getVereda().getId());
+		model.addAttribute("vereda",vereda);
+		Double numvere = vereda.getCostovere();
+		model.addAttribute("VeredaPrecioXdistancia", empssapalService.Limite(numvere));
+
+		Tipopista pistas = empssapalService.findByIdPista(FormularioAgua.getPista().getId());
+		model.addAttribute("pistas",pistas);
+		Double numpista = pistas.getCostopista()*FormularioAgua.getDistancia();
+		empssapalService.Limite(numpista);
+		model.addAttribute("pistatotal", empssapalService.Limite(numpista));
+		
+
+		Excavacion excavacion=empssapalService.findByIdExcavacion(FormularioAgua.getExcavacion().getId());
+		model.addAttribute("excavacion", excavacion);
+		Double numexca = excavacion.getPrecioexcavacion()*FormularioAgua.getDistancia();
+		model.addAttribute("excavaciontotal", empssapalService.Limite(numexca));
+
+		
+		Camaapoyo camaapoyo = empssapalService.findByIdCamaapoyo(FormularioAgua.getCamaapoyo().getId());
+		model.addAttribute("camaapoyo",camaapoyo);
+		Double numcama = camaapoyo.getPreciocama()*FormularioAgua.getDistancia();
+		model.addAttribute("camaapoyototal", empssapalService.Limite(numcama));
+		
+		Tendido tendido = empssapalService.findByIdTendido38(FormularioAgua.getDiametroagua().getId());
+		model.addAttribute("tendido",tendido);
+		Double numtend = tendido.getCostotendido()*FormularioAgua.getDistancia();
+		model.addAttribute("tendidototal", empssapalService.Limite(numtend));
+		
+		Cajamedidor cajamedidor = empssapalService.findByIdCajamedidor38(FormularioAgua.getDiametroagua().getId());
+		model.addAttribute("cajamedidor", cajamedidor);
+		Double numcajamedidor = cajamedidor.getPreciocajamedidor();
+		model.addAttribute("totalcajamedidor", empssapalService.Limite(numcajamedidor));
+		
+		Empalmered empalmeared = empssapalService.findByIdEmpalmered(FormularioAgua.getEmpalmered().getId());
+		model.addAttribute("empalmeared", empalmeared);
+		Double numempal = empalmeared.getPrecioempalme();
+		model.addAttribute("totalempalmeared", empssapalService.Limite(numempal));
+		
+		Relleno relleno   =  empssapalService.findByIdRelleno(FormularioAgua.getRelleno().getId());
+		model.addAttribute("relleno", relleno);
+		Double numrell = relleno.getCostorelleno()*FormularioAgua.getDistancia();
+		model.addAttribute("totalrelleno", empssapalService.Limite(numrell));
+		
+		Eliminacionexedente eliminacion= empssapalService.findByIdEliminacionexedente(FormularioAgua.getEliminacionexedente().getId());
+		model.addAttribute("eliminacion", eliminacion);
+		Double numelimi = eliminacion.getCostoeliminacion()*FormularioAgua.getDistancia();
+		model.addAttribute("totaleliminacion", empssapalService.Limite(numelimi));
+		
+		Pruebahidraulica prueba = empssapalService.findByIdPruebahidraulica(FormularioAgua.getPruebahidraulica().getId());
+		model.addAttribute("prueba", prueba);
+		Double numprue = prueba.getCostoprueba()*FormularioAgua.getDistancia();
+		model.addAttribute("totalprueba", empssapalService.Limite(numprue));
+
+		Double resultado = numcajamedidor+numcama+numelimi+numempal+numexca+numpista+numprue+numrell+numtend+numvere;
+		model.addAttribute("total", empssapalService.Limite(resultado));
+		
+		
+
+		
+		
 		return "FormularioAgua/Reporte";
+		
 	}
 
 	

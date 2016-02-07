@@ -11,8 +11,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import pe.gob.edu.empssapal.core.domain.Cajamedidor;
+import pe.gob.edu.empssapal.core.domain.Cajaregistradora;
+import pe.gob.edu.empssapal.core.domain.Camaapoyo;
 import pe.gob.edu.empssapal.core.domain.Camposagua;
 import pe.gob.edu.empssapal.core.domain.Camposalcantarillado;
+import pe.gob.edu.empssapal.core.domain.Eliminacionexedente;
+import pe.gob.edu.empssapal.core.domain.Empalmered;
+import pe.gob.edu.empssapal.core.domain.Excavacion;
+import pe.gob.edu.empssapal.core.domain.Pruebahidraulica;
+import pe.gob.edu.empssapal.core.domain.Relleno;
+import pe.gob.edu.empssapal.core.domain.Tendido;
+import pe.gob.edu.empssapal.core.domain.Tipopista;
+import pe.gob.edu.empssapal.core.domain.Vereda;
 import pe.gob.edu.empssapal.service.services.CamposaguaServiceImpl;
 
 @Controller
@@ -56,30 +67,83 @@ public class FormularioAlcantarilladoController {
 		return "FormularioAlcantarillado/dashboard200";
 	}
 	
+	
+	
+	
 	//guardar los formularios
 	@RequestMapping(value = "FormularioAlcantarillado/guardar160", method = RequestMethod.POST)
 	public String guardarpresupuestoagua160(
 			@ModelAttribute("FormularioAlcantarillado") Camposalcantarillado FormularioAlcantarillado, Model model) {
 		empssapalService.guardandopresupuestoalcantarillado(FormularioAlcantarillado);
 		
-		model.addAttribute("Veredas",empssapalService.findByIdVereda(FormularioAlcantarillado.getVereda().getId()));
-		model.addAttribute("pistas", empssapalService.findByIdPista(FormularioAlcantarillado.getTipopista().getId()));
-		model.addAttribute("excavacion", empssapalService.findByIdExcavacion(FormularioAlcantarillado.getExcavacion().getId()));
-		model.addAttribute("camaapoyo", empssapalService.findByIdCamaapoyo(FormularioAlcantarillado.getCamaapoyo().getId()));
-		model.addAttribute("tendido", empssapalService.findByIdTendido160(FormularioAlcantarillado.getDiametroalcantarilado().getId()));
-		model.addAttribute("cajaregistradora", empssapalService.findByIdCajaregistradora160(FormularioAlcantarillado.getDiametroalcantarilado().getId()));
-		model.addAttribute("empalmeared", empssapalService.findByIdEmpalmered(FormularioAlcantarillado.getEmpalmered().getId()));
-		model.addAttribute("relleno", empssapalService.findByIdRelleno(FormularioAlcantarillado.getRelleno().getId()));
-		model.addAttribute("eliminacion", empssapalService.findByIdEliminacionexedente(FormularioAlcantarillado.getEliminacionexcedente().getId()));
-		model.addAttribute("prueba", empssapalService.findByIdPruebahidraulica(FormularioAlcantarillado.getPruebahidrahulica().getId()));
 		
 		
 		
+		Vereda vereda = empssapalService.findByIdVeredaCorrecto(FormularioAlcantarillado.getVereda().getId());
+		model.addAttribute("vereda",vereda);
+		Double numvere = vereda.getCostovere();
+		model.addAttribute("VeredaPrecioXdistancia", empssapalService.Limite(numvere));
+
+		Tipopista pistas = empssapalService.findByIdPista(FormularioAlcantarillado.getTipopista().getId());
+		model.addAttribute("pistas",pistas);
+		Double numpista = pistas.getCostopista()*FormularioAlcantarillado.getDistancia();
+		empssapalService.Limite(numpista);
+		model.addAttribute("pistatotal", empssapalService.Limite(numpista));
+		
+
+		Excavacion excavacion=empssapalService.findByIdExcavacion(FormularioAlcantarillado.getExcavacion().getId());
+		model.addAttribute("excavacion", excavacion);
+		Double numexca = excavacion.getPrecioexcavacion()*FormularioAlcantarillado.getDistancia();
+		model.addAttribute("excavaciontotal", empssapalService.Limite(numexca));
+
+		
+		Camaapoyo camaapoyo = empssapalService.findByIdCamaapoyo(FormularioAlcantarillado.getCamaapoyo().getId());
+		model.addAttribute("camaapoyo",camaapoyo);
+		Double numcama = camaapoyo.getPreciocama()*FormularioAlcantarillado.getDistancia();
+		model.addAttribute("camaapoyototal", empssapalService.Limite(numcama));
+		
+		Tendido tendido = empssapalService.findByIdTendido160(FormularioAlcantarillado.getDiametroalcantarilado().getId());
+		model.addAttribute("tendido",tendido);
+		Double numtend = tendido.getCostotendido()*FormularioAlcantarillado.getDistancia();
+		model.addAttribute("tendidototal", empssapalService.Limite(numtend));
+		
+		Cajaregistradora cajaregistradora = empssapalService.findByIdCajaregistradora160(FormularioAlcantarillado.getDiametroalcantarilado().getId());
+		model.addAttribute("cajaregistradora", cajaregistradora);
+		Double numcajareg = cajaregistradora.getPreciocajaregistradora();
+		model.addAttribute("totalcajaregistradora", empssapalService.Limite(numcajareg));
+		
+		Empalmered empalmeared = empssapalService.findByIdEmpalmered(FormularioAlcantarillado.getEmpalmered().getId());
+		model.addAttribute("empalmeared", empalmeared);
+		Double numempal = empalmeared.getPrecioempalme();
+		model.addAttribute("totalempalmeared", empssapalService.Limite(numempal));
+		
+		Relleno relleno   =  empssapalService.findByIdRelleno(FormularioAlcantarillado.getRelleno().getId());
+		model.addAttribute("relleno", relleno);
+		Double numrell = relleno.getCostorelleno()*FormularioAlcantarillado.getDistancia();
+		model.addAttribute("totalrelleno", empssapalService.Limite(numrell));
+		
+		Eliminacionexedente eliminacion= empssapalService.findByIdEliminacionexedente(FormularioAlcantarillado.getEliminacionexcedente().getId());
+		model.addAttribute("eliminacion", eliminacion);
+		Double numelimi = eliminacion.getCostoeliminacion()*FormularioAlcantarillado.getDistancia();
+		model.addAttribute("totaleliminacion", empssapalService.Limite(numelimi));
+		
+		Pruebahidraulica prueba = empssapalService.findByIdPruebahidraulica(FormularioAlcantarillado.getPruebahidrahulica().getId());
+		model.addAttribute("prueba", prueba);
+		Double numprue = prueba.getCostoprueba()*FormularioAlcantarillado.getDistancia();
+		model.addAttribute("totalprueba", empssapalService.Limite(numprue));
+
+		Double resultado = numcajareg+numcama+numelimi+numempal+numexca+numpista+numprue+numrell+numtend+numvere;
+		model.addAttribute("total", empssapalService.Limite(resultado));
 		
 		
-		model.addAttribute("Vereda",empssapalService.findByIdVereda(FormularioAlcantarillado.getVereda().getId()));
-		return "FormularioAlcantarillado/Reporte";
+
+		
+		
+		return "FormularioAgua/Reporte";
 	}
+		
+		
+		
 	
 	
 	@RequestMapping(value = "FormularioAlcantarillado/guardar200", method = RequestMethod.POST)
@@ -87,37 +151,135 @@ public class FormularioAlcantarilladoController {
 			@ModelAttribute("FormularioAlcantarillado") Camposalcantarillado FormularioAlcantarillado, Model model) {
 		empssapalService.guardandopresupuestoalcantarillado(FormularioAlcantarillado);
 		
-		model.addAttribute("Veredas",empssapalService.findByIdVereda(FormularioAlcantarillado.getVereda().getId()));
-		model.addAttribute("pistas", empssapalService.findByIdPista(FormularioAlcantarillado.getTipopista().getId()));
-		model.addAttribute("excavacion", empssapalService.findByIdExcavacion(FormularioAlcantarillado.getExcavacion().getId()));
-		model.addAttribute("camaapoyo", empssapalService.findByIdCamaapoyo(FormularioAlcantarillado.getCamaapoyo().getId()));
-		model.addAttribute("tendido", empssapalService.findByIdTendido200(FormularioAlcantarillado.getDiametroalcantarilado().getId()));
-		model.addAttribute("cajaregistradora", empssapalService.findByIdCajaregistradora200(FormularioAlcantarillado.getDiametroalcantarilado().getId()));
-		model.addAttribute("empalmeared", empssapalService.findByIdEmpalmered(FormularioAlcantarillado.getEmpalmered().getId()));
-		model.addAttribute("relleno", empssapalService.findByIdRelleno(FormularioAlcantarillado.getRelleno().getId()));
-		model.addAttribute("eliminacion", empssapalService.findByIdEliminacionexedente(FormularioAlcantarillado.getEliminacionexcedente().getId()));
-		model.addAttribute("prueba", empssapalService.findByIdPruebahidraulica(FormularioAlcantarillado.getPruebahidrahulica().getId()));
+		Vereda vereda = empssapalService.findByIdVeredaCorrecto(FormularioAlcantarillado.getVereda().getId());
+		model.addAttribute("vereda",vereda);
+		Double numvere = vereda.getCostovere();
+		model.addAttribute("VeredaPrecioXdistancia", empssapalService.Limite(numvere));
+
+		Tipopista pistas = empssapalService.findByIdPista(FormularioAlcantarillado.getTipopista().getId());
+		model.addAttribute("pistas",pistas);
+		Double numpista = pistas.getCostopista()*FormularioAlcantarillado.getDistancia();
+		empssapalService.Limite(numpista);
+		model.addAttribute("pistatotal", empssapalService.Limite(numpista));
+		
+
+		Excavacion excavacion=empssapalService.findByIdExcavacion(FormularioAlcantarillado.getExcavacion().getId());
+		model.addAttribute("excavacion", excavacion);
+		Double numexca = excavacion.getPrecioexcavacion()*FormularioAlcantarillado.getDistancia();
+		model.addAttribute("excavaciontotal", empssapalService.Limite(numexca));
+
+		
+		Camaapoyo camaapoyo = empssapalService.findByIdCamaapoyo(FormularioAlcantarillado.getCamaapoyo().getId());
+		model.addAttribute("camaapoyo",camaapoyo);
+		Double numcama = camaapoyo.getPreciocama()*FormularioAlcantarillado.getDistancia();
+		model.addAttribute("camaapoyototal", empssapalService.Limite(numcama));
+		
+		Tendido tendido = empssapalService.findByIdTendido200(FormularioAlcantarillado.getDiametroalcantarilado().getId());
+		model.addAttribute("tendido",tendido);
+		Double numtend = tendido.getCostotendido()*FormularioAlcantarillado.getDistancia();
+		model.addAttribute("tendidototal", empssapalService.Limite(numtend));
+		
+		Cajaregistradora cajaregistradora = empssapalService.findByIdCajaregistradora200(FormularioAlcantarillado.getDiametroalcantarilado().getId());
+		model.addAttribute("cajaregistradora", cajaregistradora);
+		Double numcajareg = cajaregistradora.getPreciocajaregistradora();
+		model.addAttribute("totalcajaregistradora", empssapalService.Limite(numcajareg));
+		
+		Empalmered empalmeared = empssapalService.findByIdEmpalmered(FormularioAlcantarillado.getEmpalmered().getId());
+		model.addAttribute("empalmeared", empalmeared);
+		Double numempal = empalmeared.getPrecioempalme();
+		model.addAttribute("totalempalmeared", empssapalService.Limite(numempal));
+		
+		Relleno relleno   =  empssapalService.findByIdRelleno(FormularioAlcantarillado.getRelleno().getId());
+		model.addAttribute("relleno", relleno);
+		Double numrell = relleno.getCostorelleno()*FormularioAlcantarillado.getDistancia();
+		model.addAttribute("totalrelleno", empssapalService.Limite(numrell));
+		
+		Eliminacionexedente eliminacion= empssapalService.findByIdEliminacionexedente(FormularioAlcantarillado.getEliminacionexcedente().getId());
+		model.addAttribute("eliminacion", eliminacion);
+		Double numelimi = eliminacion.getCostoeliminacion()*FormularioAlcantarillado.getDistancia();
+		model.addAttribute("totaleliminacion", empssapalService.Limite(numelimi));
+		
+		Pruebahidraulica prueba = empssapalService.findByIdPruebahidraulica(FormularioAlcantarillado.getPruebahidrahulica().getId());
+		model.addAttribute("prueba", prueba);
+		Double numprue = prueba.getCostoprueba()*FormularioAlcantarillado.getDistancia();
+		model.addAttribute("totalprueba", empssapalService.Limite(numprue));
+
+		Double resultado = numcajareg+numcama+numelimi+numempal+numexca+numpista+numprue+numrell+numtend+numvere;
+		model.addAttribute("total", empssapalService.Limite(resultado));
 		
 		
-		return "FormularioAlcantarillado/Reporte";
+
+		
+		
+		return "FormularioAgua/Reporte";
 	}
+		
 	@RequestMapping(value = "FormularioAlcantarillado/guardar6", method = RequestMethod.POST)
 	public String guardarpresupuestoagua6(
 			@ModelAttribute("FormularioAlcantarillado") Camposalcantarillado FormularioAlcantarillado, Model model) {
 		empssapalService.guardandopresupuestoalcantarillado(FormularioAlcantarillado);
 		
-		model.addAttribute("Veredas",empssapalService.findByIdVereda(FormularioAlcantarillado.getVereda().getId()));
-		model.addAttribute("pistas", empssapalService.findByIdPista(FormularioAlcantarillado.getTipopista().getId()));
-		model.addAttribute("excavacion", empssapalService.findByIdExcavacion(FormularioAlcantarillado.getExcavacion().getId()));
-		model.addAttribute("camaapoyo", empssapalService.findByIdCamaapoyo(FormularioAlcantarillado.getCamaapoyo().getId()));
-		model.addAttribute("tendido", empssapalService.findByIdTendido6(FormularioAlcantarillado.getDiametroalcantarilado().getId()));
-		model.addAttribute("cajaregistradora", empssapalService.findByIdCajaregistradora6(FormularioAlcantarillado.getDiametroalcantarilado().getId()));
-		model.addAttribute("empalmeared", empssapalService.findByIdEmpalmered(FormularioAlcantarillado.getEmpalmered().getId()));
-		model.addAttribute("relleno", empssapalService.findByIdRelleno(FormularioAlcantarillado.getRelleno().getId()));
-		model.addAttribute("eliminacion", empssapalService.findByIdEliminacionexedente(FormularioAlcantarillado.getEliminacionexcedente().getId()));
-		model.addAttribute("prueba", empssapalService.findByIdPruebahidraulica(FormularioAlcantarillado.getPruebahidrahulica().getId()));
+		Vereda vereda = empssapalService.findByIdVeredaCorrecto(FormularioAlcantarillado.getVereda().getId());
+		model.addAttribute("vereda",vereda);
+		Double numvere = vereda.getCostovere();
+		model.addAttribute("VeredaPrecioXdistancia", empssapalService.Limite(numvere));
+
+		Tipopista pistas = empssapalService.findByIdPista(FormularioAlcantarillado.getTipopista().getId());
+		model.addAttribute("pistas",pistas);
+		Double numpista = pistas.getCostopista()*FormularioAlcantarillado.getDistancia();
+		empssapalService.Limite(numpista);
+		model.addAttribute("pistatotal", empssapalService.Limite(numpista));
+		
+
+		Excavacion excavacion=empssapalService.findByIdExcavacion(FormularioAlcantarillado.getExcavacion().getId());
+		model.addAttribute("excavacion", excavacion);
+		Double numexca = excavacion.getPrecioexcavacion()*FormularioAlcantarillado.getDistancia();
+		model.addAttribute("excavaciontotal", empssapalService.Limite(numexca));
+
+		
+		Camaapoyo camaapoyo = empssapalService.findByIdCamaapoyo(FormularioAlcantarillado.getCamaapoyo().getId());
+		model.addAttribute("camaapoyo",camaapoyo);
+		Double numcama = camaapoyo.getPreciocama()*FormularioAlcantarillado.getDistancia();
+		model.addAttribute("camaapoyototal", empssapalService.Limite(numcama));
+		
+		Tendido tendido = empssapalService.findByIdTendido6(FormularioAlcantarillado.getDiametroalcantarilado().getId());
+		model.addAttribute("tendido",tendido);
+		Double numtend = tendido.getCostotendido()*FormularioAlcantarillado.getDistancia();
+		model.addAttribute("tendidototal", empssapalService.Limite(numtend));
+		
+		Cajaregistradora cajaregistradora = empssapalService.findByIdCajaregistradora6(FormularioAlcantarillado.getDiametroalcantarilado().getId());
+		model.addAttribute("cajaregistradora", cajaregistradora);
+		Double numcajareg = cajaregistradora.getPreciocajaregistradora();
+		model.addAttribute("totalcajaregistradora", empssapalService.Limite(numcajareg));
+		
+		Empalmered empalmeared = empssapalService.findByIdEmpalmered(FormularioAlcantarillado.getEmpalmered().getId());
+		model.addAttribute("empalmeared", empalmeared);
+		Double numempal = empalmeared.getPrecioempalme();
+		model.addAttribute("totalempalmeared", empssapalService.Limite(numempal));
+		
+		Relleno relleno   =  empssapalService.findByIdRelleno(FormularioAlcantarillado.getRelleno().getId());
+		model.addAttribute("relleno", relleno);
+		Double numrell = relleno.getCostorelleno()*FormularioAlcantarillado.getDistancia();
+		model.addAttribute("totalrelleno", empssapalService.Limite(numrell));
+		
+		Eliminacionexedente eliminacion= empssapalService.findByIdEliminacionexedente(FormularioAlcantarillado.getEliminacionexcedente().getId());
+		model.addAttribute("eliminacion", eliminacion);
+		Double numelimi = eliminacion.getCostoeliminacion()*FormularioAlcantarillado.getDistancia();
+		model.addAttribute("totaleliminacion", empssapalService.Limite(numelimi));
+		
+		Pruebahidraulica prueba = empssapalService.findByIdPruebahidraulica(FormularioAlcantarillado.getPruebahidrahulica().getId());
+		model.addAttribute("prueba", prueba);
+		Double numprue = prueba.getCostoprueba()*FormularioAlcantarillado.getDistancia();
+		model.addAttribute("totalprueba", empssapalService.Limite(numprue));
+
+		Double resultado = numcajareg+numcama+numelimi+numempal+numexca+numpista+numprue+numrell+numtend+numvere;
+		model.addAttribute("total", empssapalService.Limite(resultado));
 		
 		
-		return "FormularioAlcantarillado/Reporte";
+
+		
+		
+		return "FormularioAgua/Reporte";
 	}
+		
 }

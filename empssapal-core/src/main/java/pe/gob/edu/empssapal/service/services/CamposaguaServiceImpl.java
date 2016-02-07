@@ -1,5 +1,7 @@
 package pe.gob.edu.empssapal.service.services;
 
+import java.math.BigDecimal;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,14 @@ public class CamposaguaServiceImpl {
 	private CamposaguaDAO camposaguaDAO;
 	
 	
+	//Metodos herramientas
+	
+		public BigDecimal Limite (Double num){
+			return this.camposaguaDAO.Limite(num);
+		}
+	
+	
+	
 	// metodo NUEVO
 	/**
 	 * By ocalsin
@@ -44,57 +54,57 @@ public class CamposaguaServiceImpl {
 	
 	
 	//find long de 15
-		public List<Vereda> findByIdVereda(Long id){
-			return camposaguaDAO.findByIdVereda(id);
-		}
-		public List<Tipopista> findByIdPista(Long id){
+//		public Vereda findByIdVereda(Long id){
+//			return camposaguaDAO.findByIdVereda(id);
+//		}
+		public Tipopista findByIdPista(Long id){
 			return camposaguaDAO.findByIdPista(id);
 		}
-		public List<Tendido> findByIdTendido15(Long id) {
+		public Tendido findByIdTendido15(Long id) {
 			return camposaguaDAO.findByIdTendido15(id);
 		}
-		public List<Cajamedidor> findByIdCajamedidor15(Long id) {
+		public Cajamedidor findByIdCajamedidor15(Long id) {
 			return camposaguaDAO.findByIdCajamedidor15(id);
 		}
 		
-		public List<Tendido> findByIdTendido20(Long id) {
+		public Tendido findByIdTendido20(Long id) {
 			return camposaguaDAO.findByIdTendido20(id);
 		}
-		public List<Cajamedidor> findByIdCajamedidor20(Long id) {
+		public Cajamedidor findByIdCajamedidor20(Long id) {
 			return camposaguaDAO.findByIdCajamedidor20(id);
 		}
-		public List<Tendido> findByIdTendido25(Long id) {
+		public Tendido findByIdTendido25(Long id) {
 			return camposaguaDAO.findByIdTendido25(id);
 		}
-		public List<Cajamedidor> findByIdCajamedidor25(Long id) {
+		public Cajamedidor findByIdCajamedidor25(Long id) {
 			return camposaguaDAO.findByIdCajamedidor25(id);
 		}
-		public List<Tendido> findByIdTendido38(Long id) {
+		public Tendido findByIdTendido38(Long id) {
 			return camposaguaDAO.findByIdTendido38(id);
 		}
-		public List<Cajamedidor> findByIdCajamedidor38(Long id) {
+		public Cajamedidor findByIdCajamedidor38(Long id) {
 			return camposaguaDAO.findByIdCajamedidor38(id);
 		}
 
 		
 		
-		public List<Tendido> findByIdTendido6(Long id) {
+		public Tendido findByIdTendido6(Long id) {
 			return camposaguaDAO.findByIdTendido6(id);
 		}
-		public List<Cajaregistradora> findByIdCajaregistradora6(Long id) {
+		public Cajaregistradora findByIdCajaregistradora6(Long id) {
 			return camposaguaDAO.findByIdCajaregistradora6(id);
 		}
 		
-		public List<Tendido> findByIdTendido160(Long id) {
+		public Tendido findByIdTendido160(Long id) {
 			return camposaguaDAO.findByIdTendido160(id);
 		}
-		public List<Cajaregistradora> findByIdCajaregistradora160(Long id) {
+		public Cajaregistradora findByIdCajaregistradora160(Long id) {
 			return camposaguaDAO.findByIdCajaregistradora160(id);
 		}
-		public List<Tendido> findByIdTendido200(Long id) {
+		public Tendido findByIdTendido200(Long id) {
 			return camposaguaDAO.findByIdTendido200(id);
 		}
-		public List<Cajaregistradora> findByIdCajaregistradora200(Long id) {
+		public Cajaregistradora findByIdCajaregistradora200(Long id) {
 			return camposaguaDAO.findByIdCajaregistradora200(id);
 		}
 		
@@ -102,40 +112,40 @@ public class CamposaguaServiceImpl {
 		
 		
 		
-		public List<Rotura> findByIdRotura(Long id){
+		public Rotura findByIdRotura(Long id){
 			return camposaguaDAO.findByIdRotura(id);
 		}
-		public List<Reposicion> findByIdReposicion(Long id) {
+		public Reposicion findByIdReposicion(Long id) {
 			return camposaguaDAO.findByIdReposicion(id);
 		}
 		
-		public List<Relleno> findByIdRelleno(Long id) {
+		public Relleno findByIdRelleno(Long id) {
 			return camposaguaDAO.findByIdRelleno(id);
 		}
-		public List<Pruebahidraulica> findByIdPruebahidraulica(Long id){
+		public Pruebahidraulica findByIdPruebahidraulica(Long id){
 			return camposaguaDAO.findByIdPruebahidraulica(id);
 		}
-		public List<Excavacion> findByIdExcavacion(Long id) {
+		public Excavacion findByIdExcavacion(Long id) {
 			return camposaguaDAO.findByIdExcavacion(id);
 		}
-		public List<Empalmered> findByIdEmpalmered(Long id) {
+		public Empalmered findByIdEmpalmered(Long id) {
 			return camposaguaDAO.findByIdEmpalmered(id);
 		}
-		public List<Eliminacionexedente> findByIdEliminacionexedente(Long id) {
+		public Eliminacionexedente findByIdEliminacionexedente(Long id) {
 			return camposaguaDAO.findByIdEliminacionexedente(id);
 		}
-		public List<Cajaregistradora> findByIdCajaregistradora(Long id) {
+		public Cajaregistradora findByIdCajaregistradora(Long id) {
 			return camposaguaDAO.findByIdCajaregistradora(id);
 		}
-		public List<Camaapoyo> findByIdCamaapoyo(Long id) {
+		public Camaapoyo findByIdCamaapoyo(Long id) {
 			return camposaguaDAO.findByIdCamaapoyo(id);
 		}
 			
-		public List<Camposalcantarillado> findbyidcamposalcantarillado(Long id){
+		public Camposalcantarillado findbyidcamposalcantarillado(Long id){
 			return camposaguaDAO.findbyidcamposalcantarillado(id);
 		}
-		public List<Camposagua> findbyidcamposagua(int i){
-			return camposaguaDAO.findbyidcamposagua(i);
+		public Camposagua findbyidcamposagua(Long id){
+			return camposaguaDAO.findbyidcamposagua(id);
 		}	
 			
 	//campos presupuesto alcantarillado

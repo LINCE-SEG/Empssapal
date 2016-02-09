@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import pe.gob.edu.empssapal.core.domain.Camaapoyo;
 import pe.gob.edu.empssapal.core.domain.Eliminacionexedente;
 import pe.gob.edu.empssapal.service.services.CamposaguaServiceImpl;
 

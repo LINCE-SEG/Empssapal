@@ -2,6 +2,7 @@ package pe.gob.edu.empssapal.webapp.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import pe.gob.edu.empssapal.core.domain.Eliminacionexedente;
 import pe.gob.edu.empssapal.core.domain.Empalmered;
 import pe.gob.edu.empssapal.service.services.CamposaguaServiceImpl;
 

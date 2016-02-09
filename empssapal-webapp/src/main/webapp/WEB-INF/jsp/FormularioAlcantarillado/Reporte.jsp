@@ -27,6 +27,7 @@
 			<td>C.U</td>
 			<td>PRECIO TOTAL</td>
 		</tr>
+		
 		<tr >
 			<td>Vereda</td>
 			<td>Unidad</td>
@@ -35,7 +36,7 @@
 			<td>${VeredaPrecioXdistancia}</td>
 		</tr>
 		
-		<tr >
+		<tr>
 			<td>Costo por Pista (incluye rotura y reposicion de pista)</td>
 			<td>Metros</td>
 			<td>${pistas.costopista}</td>
@@ -54,7 +55,7 @@
 		<tr>
 			<td>Costo por Cama de apoyo</td>
 			<td>Metros</td>
-			<td> ${camaapoyo.preciocama}</td>
+			<td>${camaapoyo.preciocama}</td>
 			<td>${FormularioAlcantarillado.distancia}</td>
 			<td>${camaapoyototal}</td>
 			
@@ -122,6 +123,21 @@
 			<td>TOTAL A PAGAR :</td>
 			<td>${importetotal}</td>
 			
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>+/- :</td>
+			<td>${deciredondeo}</td>
+			
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>TOTAL A PAGAR :</td>
+			<td>${importetotalredondeado}</td>
 		</tr>
 		</table>
 

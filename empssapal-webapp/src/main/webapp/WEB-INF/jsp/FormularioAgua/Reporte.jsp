@@ -1,6 +1,10 @@
 <%@ include file="/WEB-INF/jsp/include/taglibs.jsp"%>
 <script src="../../bootstrap/js/jspdf.debug.js"></script>
 
+<a href="/Reporte/ismap.map">
+	<img src="imagen.png" ismap="ismap" >
+</a>
+
 <center>
 	<label>EMPSSAPAL-SICUANI  "AÑO DE LA CONSOLIDACION DEL MAR DE GRAU"</label>
 </center>
@@ -16,7 +20,6 @@
 		<br>
 		<label>DISTANCIA         : </label>
 		<tr>${FormularioAgua.distancia} - Metros</tr>
-	
 	</table >
 <center>	
 	<table border="4">
@@ -125,6 +128,21 @@
 			<td>TOTAL A PAGAR :</td>
 			<td>${importetotal}</td>
 			
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>+/- :</td>
+			<td>${deciredondeo}</td>
+			
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>TOTAL A PAGAR :</td>
+			<td>${importetotalredondeado}</td>
 		</tr>
 	</table>
 

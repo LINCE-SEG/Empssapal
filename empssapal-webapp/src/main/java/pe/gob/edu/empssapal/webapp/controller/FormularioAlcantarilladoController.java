@@ -1,6 +1,8 @@
 package pe.gob.edu.empssapal.webapp.controller;
 
-import javax.servlet.http.HttpServletRequest;
+
+
+import java.math.BigDecimal;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -11,10 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import pe.gob.edu.empssapal.core.domain.Cajamedidor;
 import pe.gob.edu.empssapal.core.domain.Cajaregistradora;
 import pe.gob.edu.empssapal.core.domain.Camaapoyo;
-import pe.gob.edu.empssapal.core.domain.Camposagua;
 import pe.gob.edu.empssapal.core.domain.Camposalcantarillado;
 import pe.gob.edu.empssapal.core.domain.Eliminacionexedente;
 import pe.gob.edu.empssapal.core.domain.Empalmered;
@@ -71,8 +71,7 @@ public class FormularioAlcantarilladoController {
 	
 	//guardar los formularios
 	@RequestMapping(value = "FormularioAlcantarillado/guardar160", method = RequestMethod.POST)
-	public String guardarpresupuestoagua160(
-			@ModelAttribute("FormularioAlcantarillado") Camposalcantarillado FormularioAlcantarillado, Model model) {
+	public String guardarpresupuestoagua160(@ModelAttribute("FormularioAlcantarillado") Camposalcantarillado FormularioAlcantarillado, Model model) {
 		
 		empssapalService.guardandopresupuestoalcantarillado(FormularioAlcantarillado);
 		
@@ -149,9 +148,17 @@ public class FormularioAlcantarilladoController {
 		Double importetotal = resultado + igv;
 		model.addAttribute("importetotal", empssapalService.Limite(importetotal));
 	
+		model.addAttribute("importetotalredondeado", empssapalService.Limite1decimal(importetotal));
+		
+		BigDecimal a= empssapalService.Limite(importetotal);
+		Double aa = a.doubleValue();
+		BigDecimal b= empssapalService.Limite1decimal(importetotal);
+		Double bb = b.doubleValue();
+		Double cc = aa-bb;
+		model.addAttribute("deciredondeo", empssapalService.Limite(cc));		
 		
 		
-		return "FormularioAlcantarillado/dashboard6";
+		return "FormularioAlcantarillado/Reporte";
 	}
 		
 		
@@ -170,7 +177,6 @@ public class FormularioAlcantarilladoController {
 		Double Medida = FormularioAlcantarillado.getDistancia()*0.8;
 		model.addAttribute("Medida", empssapalService.Limite(Medida));
 		Double numpista = pistas.getCostopista()*Medida;
-		empssapalService.Limite(numpista);
 		model.addAttribute("pistatotal", empssapalService.Limite(numpista));
 		
 		
@@ -216,11 +222,11 @@ public class FormularioAlcantarilladoController {
 		model.addAttribute("totalprueba", empssapalService.Limite(numprue));
 
 		//reporte de rotura
-				Rotura rotura = empssapalService.findbyidrotura(FormularioAlcantarillado.getTipopista().getId());
-				model.addAttribute("rotura", rotura);
-				//reporte de reposicion
-				Reposicion reposicion = empssapalService.findbyidreposicion(FormularioAlcantarillado.getTipopista().getId());
-				model.addAttribute("reposicion",reposicion);
+		Rotura rotura = empssapalService.findbyidrotura(FormularioAlcantarillado.getTipopista().getId());
+		model.addAttribute("rotura", rotura);
+		//reporte de reposicion
+		Reposicion reposicion = empssapalService.findbyidreposicion(FormularioAlcantarillado.getTipopista().getId());
+		model.addAttribute("reposicion",reposicion);
 				
 				
 		
@@ -235,9 +241,18 @@ public class FormularioAlcantarilladoController {
 		Double importetotal = resultado + igv;
 		model.addAttribute("importetotal", empssapalService.Limite(importetotal));
 	
+		model.addAttribute("importetotalredondeado", empssapalService.Limite1decimal(importetotal));
+
+		BigDecimal a= empssapalService.Limite(importetotal);
+		Double aa = a.doubleValue();
+		BigDecimal b= empssapalService.Limite1decimal(importetotal);
+		Double bb = b.doubleValue();
+		Double cc = aa-bb;
+		model.addAttribute("deciredondeo", empssapalService.Limite(cc));		
 		
 		
-		return "FormularioAlcantarillado/dashboard6";
+		return "FormularioAlcantarillado/Reporte";
+	
 	}
 		
 	@RequestMapping(value = "FormularioAlcantarillado/guardar6", method = RequestMethod.POST)
@@ -255,7 +270,7 @@ public class FormularioAlcantarilladoController {
 		Double Medida = FormularioAlcantarillado.getDistancia()*0.8;
 		model.addAttribute("Medida", empssapalService.Limite(Medida));
 		Double numpista = pistas.getCostopista()*Medida;
-		empssapalService.Limite(numpista);
+		
 		model.addAttribute("pistatotal", empssapalService.Limite(numpista));
 		
 		Excavacion excavacion=empssapalService.findByIdExcavacion(FormularioAlcantarillado.getExcavacion().getId());
@@ -318,9 +333,17 @@ public class FormularioAlcantarilladoController {
 		Double importetotal = resultado + igv;
 		model.addAttribute("importetotal", empssapalService.Limite(importetotal));
 	
+		model.addAttribute("importetotalredondeado", empssapalService.Limite1decimal(importetotal));
+		
+		BigDecimal a= empssapalService.Limite(importetotal);
+		Double aa = a.doubleValue();
+		BigDecimal b= empssapalService.Limite1decimal(importetotal);
+		Double bb = b.doubleValue();
+		Double cc = aa-bb;
+		model.addAttribute("deciredondeo", empssapalService.Limite(cc));		
 		
 		
-		return "FormularioAlcantarillado/dashboard6";
+		return "FormularioAlcantarillado/Reporte";
 	}
 		
 }

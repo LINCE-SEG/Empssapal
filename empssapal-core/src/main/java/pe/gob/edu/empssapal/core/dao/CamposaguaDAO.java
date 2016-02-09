@@ -30,8 +30,10 @@ public interface CamposaguaDAO {
 	
 	
 	//Metodos herramientas
-	 public BigDecimal Limite (Double num);
+	public BigDecimal Limite (Double num);
 	
+	//Metodos herramientas 1 decimal
+	public BigDecimal Limite1decimal (Double num);
 	
 	
 	

@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 
+
+
 import pe.gob.edu.empssapal.core.domain.Cajamedidor;
 import pe.gob.edu.empssapal.core.domain.Cajaregistradora;
 import pe.gob.edu.empssapal.core.domain.Camaapoyo;
@@ -32,9 +34,6 @@ public class CamposaguaDAOImpl extends BaseDAOHibernate implements CamposaguaDAO
 		return findFirst(Reposicion.class,"FROM Reposicion where IdReposicion =" + id );
 	}
 	
-	
-	
-	
 	//Metodos herramientas
 	public BigDecimal Limite (Double num){
 		
@@ -44,6 +43,19 @@ public class CamposaguaDAOImpl extends BaseDAOHibernate implements CamposaguaDAO
 	      System.out.println("Número : "+big);
 		return big;
 	}
+	
+	//Metodos herramientas 1 decimal
+	public BigDecimal Limite1decimal (Double num){
+			
+			  String val = num+"";
+		      BigDecimal big = new BigDecimal(val);
+		      big = big.setScale(1, RoundingMode.HALF_UP);
+		      System.out.println("Número : "+big);
+			return big;
+		}
+	
+	
+	
 	
 	// find long de agua
 	public Excavacion findByIdExcavacion(Long id) {

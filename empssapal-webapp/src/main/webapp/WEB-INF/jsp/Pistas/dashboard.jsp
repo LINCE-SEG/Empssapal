@@ -15,7 +15,8 @@
 		<display:column title="accion">
 		<a href="../Pruebahidrahulica/${Pruebahidrahulica.id}" class="btn btn-primary" >
 		<i  class="fa fa-pencil-square-o"></i>
-		Modificar Precio</a>
+		Modificar Precio
+		</a>
 		</display:column>
 
 </display:table>

@@ -1,7 +1,7 @@
 package pe.gob.edu.empssapal.service.services;
 
 import java.math.BigDecimal;
-
+import java.math.RoundingMode;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,12 +41,17 @@ public class CamposaguaServiceImpl {
 		return camposaguaDAO.findByIdReposicion(id);
 	}
 	
-	
-	
+
 	//Metodos herramientas
 	
 		public BigDecimal Limite (Double num){
 			return this.camposaguaDAO.Limite(num);
+		}
+		
+		
+		//Metodos herramientas 1 decimal
+		public BigDecimal Limite1decimal (Double num){
+			return this.camposaguaDAO.Limite1decimal(num);
 		}
 	
 	

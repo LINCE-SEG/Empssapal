@@ -2,6 +2,7 @@ package pe.gob.edu.empssapal.webapp.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import pe.gob.edu.empssapal.core.domain.Camposalcantarillado;
 import pe.gob.edu.empssapal.service.services.CamposaguaServiceImpl;
 
 @Controller
@@ -36,6 +36,7 @@ public class HomeController {
 		model.addAttribute("Rotura", empssapalService.Roturalist());
 		model.addAttribute("Tendido", empssapalService.Tendidolist());
 		model.addAttribute("Vereda", empssapalService.Veredalist());
+
 		request.getSession().setAttribute("menuHeader", "home");
 		
 		return "home/dashboard";

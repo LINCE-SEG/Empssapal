@@ -2,6 +2,9 @@ package pe.gob.edu.empssapal.webapp.controller;
 
 
 
+import java.math.BigDecimal;
+
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
@@ -12,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 
 import pe.gob.edu.empssapal.core.domain.Cajamedidor;
 import pe.gob.edu.empssapal.core.domain.Camaapoyo;
@@ -169,8 +173,18 @@ public class FormularioAguaController {
 		model.addAttribute("igv", empssapalService.Limite(igv));
 		
 		Double importetotal = resultado + igv;
+		
 		model.addAttribute("importetotal", empssapalService.Limite(importetotal));
-				
+			
+		model.addAttribute("importetotalredondeado", empssapalService.Limite1decimal(importetotal));
+		
+		BigDecimal a= empssapalService.Limite(importetotal);
+		Double aa = a.doubleValue();
+		BigDecimal b= empssapalService.Limite1decimal(importetotal);
+		Double bb = b.doubleValue();
+		Double cc = aa-bb;
+		model.addAttribute("deciredondeo", empssapalService.Limite(cc));		
+		
 		return "FormularioAgua/Reporte";
 	}
 	
@@ -250,10 +264,18 @@ public class FormularioAguaController {
 		model.addAttribute("igv", empssapalService.Limite(igv));
 		
 		Double importetotal = resultado + igv;
+		
 		model.addAttribute("importetotal", empssapalService.Limite(importetotal));
 		
-
+		model.addAttribute("importetotalredondeado", empssapalService.Limite1decimal(importetotal));
 		
+		BigDecimal a= empssapalService.Limite(importetotal);
+		Double aa = a.doubleValue();
+		BigDecimal b= empssapalService.Limite1decimal(importetotal);
+		Double bb = b.doubleValue();
+		Double cc = aa-bb;
+		model.addAttribute("deciredondeo", empssapalService.Limite(cc));		
+				
 		
 		return "FormularioAgua/Reporte";
 		
@@ -336,6 +358,15 @@ public class FormularioAguaController {
 		model.addAttribute("importetotal", empssapalService.Limite(importetotal));
 		
 
+		model.addAttribute("importetotalredondeado", empssapalService.Limite1decimal(importetotal));
+		
+		BigDecimal a= empssapalService.Limite(importetotal);
+		Double aa = a.doubleValue();
+		BigDecimal b= empssapalService.Limite1decimal(importetotal);
+		Double bb = b.doubleValue();
+		Double cc = aa-bb;
+		model.addAttribute("deciredondeo", empssapalService.Limite(cc));		
+		
 		
 		
 		return "FormularioAgua/Reporte";
@@ -418,22 +449,16 @@ public class FormularioAguaController {
 		Double importetotal = resultado + igv;
 		model.addAttribute("importetotal", empssapalService.Limite(importetotal));
 		
-
+		model.addAttribute("importetotalredondeado", empssapalService.Limite1decimal(importetotal));
 		
+		BigDecimal a= empssapalService.Limite(importetotal);
+		Double aa = a.doubleValue();
+		BigDecimal b= empssapalService.Limite1decimal(importetotal);
+		Double bb = b.doubleValue();
+		Double cc = aa-bb;
+		model.addAttribute("deciredondeo", empssapalService.Limite(cc));		
 		
 		return "FormularioAgua/Reporte";
 		
-	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 	}

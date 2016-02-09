@@ -1,8 +1,4 @@
 <display:table name="${Cajamedidor}" id="Cajamedidor" requestURI="/dashboard" class="table table-condensed">
-
-	
-
-	
 		<display:column title="accion">
 		<a href="../Cajamedidor" class="btn btn-primary" >
 		<i  class="fa fa-pencil-square-o"></i>

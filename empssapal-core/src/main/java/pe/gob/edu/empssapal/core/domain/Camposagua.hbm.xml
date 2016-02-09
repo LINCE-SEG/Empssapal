@@ -12,6 +12,7 @@
      	<property name="interesado" type="string">
             <column name="Interesado" length="100" />
         </property>
+        
         <property name="fecha" type="date">
             <column name="Fecha" length="100" />
         </property>

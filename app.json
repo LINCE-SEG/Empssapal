@@ -1,0 +1,16 @@
+{
+  "name": "Empssapal",
+  "description": "json para mi app",
+  "scripts": {
+  },
+  "env": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/LINCE-SEG/Empssapal.git"
+    }
+  ]
+}
